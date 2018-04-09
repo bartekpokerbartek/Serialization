@@ -6,12 +6,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace BinarySerialization
 {
     [Serializable]
-    public class Person : ISerializable
+    public class Person : ISerializable, IDeserializationCallback
     {
         public Person()
         {
             Salary = Age + 199;
         }
+
+        [NonSerialized]
+        public string NonSerializedField;
 
         public string Name { get; set; }
 
@@ -62,6 +65,17 @@ namespace BinarySerialization
 
             stream.Close();
             return person;
+        }
+
+        public void OnDeserialization(object sender)
+        {
+            Console.WriteLine("On deserialization callback");
+        }
+
+        [OnSerialized]
+        public void OnSerialized(StreamingContext context)
+        {
+            Console.WriteLine("OnSerialized fcn.");
         }
     }
 }

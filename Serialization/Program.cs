@@ -60,7 +60,7 @@ namespace Serialization
 
         private static void handler(object sender, XmlNodeEventArgs e)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Unknown node handler.");
         }
     }
 }
